@@ -1,0 +1,63 @@
+REACT JS WEB SERVER GAIDE
+##########################
+
+Iptables rules
+#####
+#!/bin/sh
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p TCP --dport 22 -s 145.239.30.91 -j ACCEPT
+iptables -A INPUT -p TCP --dport 20202 -s 145.239.30.91 -j ACCEPT
+iptables -A INPUT -p TCP --dport 80 -j ACCEPT
+iptables -A INPUT -p TCP --dport 443 -j ACCEPT
+##
+chmod +x ipt.sh 
+sudo apt-get install iptables-persistent
+./ipt.sh 
+netfilter-persistent save
+netfilter-persistent start
+systemctl stop    netfilter-persistent
+systemctl start   netfilter-persistent
+systemctl restart netfilter-persistent
+######
+Install yarn
+####
+curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+#####
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+##
+npx browserslist@latest --update-db
+yarn global add serve
+#
+apt remove snapd
+#
+sudo npm install pm2@latest -g
+
+
+
+#######
+Start Pj
+#######
+sudo serve -s --ssl-cert /home/ubuntu/.ssl/cert.pem --ssl-key /home/ubuntu/.ssl/key.pem -l tcp://ip:443 build
+#
+Prodaction mode
+#
+nano ecosys.js.conf
+/*
+module.exports = {
+  apps : [
+      {
+            name: "votefl",
+            cwd: "/var/www/vote",
+            script: "sudo serve -s --ssl-cert /home/ubuntu/.ssl/cert.pem --ssl-key /home/ubuntu/.ssl/key.pem -l tcp://ip:443 build",
+      }
+  ]
+}
+*/

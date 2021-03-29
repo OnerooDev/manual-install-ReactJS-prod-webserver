@@ -49,13 +49,13 @@ sudo serve -s --ssl-cert /home/ubuntu/.ssl/cert.pem --ssl-key /home/ubuntu/.ssl/
 #
 Prodaction mode
 #
-nano ecosys.js.conf
+nano ecosys.config.js
 /*
 module.exports = {
   apps : [
       {
-            name: "votefl",
-            cwd: "/var/www/vote",
+            name: "name",
+            cwd: "/var/www/path",
             script: "sudo serve -s --ssl-cert /home/ubuntu/.ssl/cert.pem --ssl-key /home/ubuntu/.ssl/key.pem -l tcp://ip:443 build",
       }
   ]

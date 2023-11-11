@@ -1,0 +1,19 @@
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+sudo adduser back_user
+sudo -u postgres createuser --interactive
+sudo -u back_user psql
+// ->
+	\password
+//
+sudo -u back_user createdb back_db
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn nodejs
+sudo apt install redis-server
+sudo nano /etc/redis/redis.conf
+// ->
+ supervised systemd
+//
+sudo systemctl restart redis.service
